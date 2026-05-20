@@ -38,11 +38,11 @@ pipeline {
             }
         }
 
-        // stage('Sleep for 5 Minutes') {
-        //     steps{
-        //         sh 'sleep 5m'
-        //     }
-        // }
+        stage('Sleep for 3 Minutes') {
+            steps{
+                sh 'sleep 3m'
+            }
+        }
 
         stage('Destroy all the created resources'){
             steps {

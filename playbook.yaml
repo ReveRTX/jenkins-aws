@@ -15,3 +15,9 @@
         name: httpd
         state: started
         enabled: yes
+
+    - name: "Use wget to download netflix page"
+      shell:
+        cmd: |
+          cd /var/www/html/;
+          wget netflix.com;

@@ -37,5 +37,17 @@ pipeline {
                 sh 'aws ec2 describe-instances --region ap-south-1'
             }
         }
+
+        stage('Sleep for 5 Minutes') {
+            steps{
+                sh 'sleep 5m'
+            }
+        }
+
+        stage('Destroy all the created resources'){
+            steps {
+                sh 'terraform destroy -auto-approve tfplan'
+            }
+        }
     }
 }

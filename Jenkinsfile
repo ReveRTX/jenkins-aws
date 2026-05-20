@@ -10,7 +10,7 @@ pipeline {
     stages {
         stage('Clone Repository') {
             steps {
-                git 'https://github.com/vrk2299/pipeline_1'
+                git 'https://github.com/ReveRTX/jenkins-aws'
             }
         }
 

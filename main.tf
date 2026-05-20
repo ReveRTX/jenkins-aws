@@ -1,14 +1,8 @@
 terraform {
-  backend "s3" {
-    bucket = "mybucketviv1"
-    key    = "backend/terraform.tfstate"
-    region = "ap-south-1"
-  }
-
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "~> 3.0"
+      version = "~> 6.0"
     }
   }
 }
@@ -18,10 +12,10 @@ provider "aws" {
 }
 
 resource "aws_instance" "my_server" {
-  instance_type        = "t2.micro"
-  ami                  = "ami-0a1235697f4afa8a4"
-  key_name             = "newmumbaikey"
-  availability_zone    = "ap-south-1b"
+  instance_type        = "t3.micro"
+  ami                  = "ami-09ed39e30153c3bf9"
+  key_name             = "harsha-server"
+  availability_zone    = "ap-south-1a"
   hibernation          = true
 
   root_block_device {
@@ -30,7 +24,7 @@ resource "aws_instance" "my_server" {
   }
 
   tags = {
-    Name = "neekendukuuuu"
+    Name = "jenkins-aws-server"
   }
 
   ebs_block_device {
@@ -45,11 +39,11 @@ resource "aws_instance" "my_server" {
       sudo sleep 120
       sudo ssh-keygen -R ${self.public_ip}
        
-      sudo ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i ${self.public_ip}, playbook.yaml -u ec2-user --private-key /home/trevor/keys/newmumbaikey 
+      sudo ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i ${self.public_ip}, playbook.yaml -u ec2-user --private-key /home/ec2-user/./keys/harsha-server.pem
     EOT
   }
 }
 
 output "aws_attributes" {
-  value = aws_instance.my_server
+  value = aws_instance.my_server.public_ip
 }
